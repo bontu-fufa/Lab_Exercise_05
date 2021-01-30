@@ -31,131 +31,159 @@ let inputBar = document.querySelector('#input-bar');
 // global variables
 let numbers = [];
 let answer ;
+let currentInput = '';
 let selectedOperator;
 
 
 // EventListener for numbers
 zero.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('0')
     var p = document.createElement("p");
-    var text = document.createTextNode("0");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(0);
+
 })
 
 one.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('1')
     var p = document.createElement("p");
-    var text = document.createTextNode("1");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(1);
 })
 
 two.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('2')
     var p = document.createElement("p");
-    var text = document.createTextNode("2");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(2);
 })
 
 three.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('3')
     var p = document.createElement("p");
-    var text = document.createTextNode("3");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(3);
 })
 
 four.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('4')
     var p = document.createElement("p");
-    var text = document.createTextNode("4");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(4);
 })
 
 five.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('5')
     var p = document.createElement("p");
-    var text = document.createTextNode("5");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(5);
 })
 
 six.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('6')
     var p = document.createElement("p");
-    var text = document.createTextNode("6");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(6);
 })
 
 seven.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('7')
     var p = document.createElement("p");
-    var text = document.createTextNode("7");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(7);
 })
 
 eight.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('8')
     var p = document.createElement("p");
-    var text = document.createTextNode("8");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(8);
 })
 
 nine.addEventListener('click', function() {
     inputBar.innerHTML = '';
+    currentInput = currentInput.concat('9')
     var p = document.createElement("p");
-    var text = document.createTextNode("9");
+    var text = document.createTextNode(currentInput);
     p.appendChild(text);
     inputBar.appendChild(p);
-    numbers.push(9);
 })
+btnDot.addEventListener('click', function() {
+    inputBar.innerHTML = '';
+    currentInput = currentInput.concat('.')
+    var p = document.createElement("p");
+    var text = document.createTextNode(currentInput);
+    p.appendChild(text);
+    inputBar.appendChild(p);
+});
 // -------------- end of EventListener for numbers ------------
 
 // EventListener for operators
 btnAdd.addEventListener('click', function() {
     selectedOperator = "add";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
+    
+    
 });
 btnSub.addEventListener('click', function() {
     selectedOperator = "sub";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 btnProduct.addEventListener('click', function() {
     selectedOperator = "prod";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 btnDivide.addEventListener('click', function() {
     selectedOperator = "div"
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 btnPower.addEventListener('click', function() {
     selectedOperator = "power";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 btnModulo.addEventListener('click', function() {
     selectedOperator = "modulo";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 btnSqrt.addEventListener('click', function() {
     selectedOperator = "sqrt";
     inputBar.innerHTML = '';
+    numbers.push(parseInt(currentInput));
+    currentInput = '';
 });
 
+
+console.log(numbers)
 // -------------- end of EventListener for operators ------------
 
 // EventListener for remaining button
@@ -168,9 +196,13 @@ btnClear.addEventListener('click', function() {
     p.appendChild(text);
     inputBar.appendChild(p);
     numbers = []
+    currentInput = '';
+    
+
 })
 // return answer - equal button
 btnEqual.addEventListener('click',function(){
+    numbers.push(parseInt(currentInput));
     getOperator(selectedOperator);
     inputBar.innerHTML = '';
     var p = document.createElement("p");
