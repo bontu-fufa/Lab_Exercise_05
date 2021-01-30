@@ -4,9 +4,9 @@ const form = document.querySelector('#task-form'); //The form at the top
 const filter = document.querySelector('#filter'); //the task filter text field
 const taskList = document.querySelector('.collection'); //The UL
 const clearBtn = document.querySelector('.clear-tasks'); //the all task clear button
-
 const reloadIcon = document.querySelector('.fa'); //the reload button at the top navigation 
 
+const searchButton = document.querySelector('#searchButton');
 // Add Event Listener  [Form , clearBtn and filter search input ]
 
 // form submit 
@@ -19,7 +19,6 @@ filter.addEventListener('keyup', filterTasks);
 taskList.addEventListener('click', removeTask);
 // Event Listener for reload 
 reloadIcon.addEventListener('click', reloadPage);
-
 
 
 
@@ -93,6 +92,17 @@ function filterTasks(e) {
     
     */
 
+   let term = document.querySelector("#filter").value;
+   let existingTasks = document.querySelectorAll(".collection-item");
+   existingTasks.forEach( function(task) {
+       if (task.textContent.indexOf(term) != -1) {
+           task.style.display = "block";
+       } else {
+           task.style.display = "none";
+       }
+   })
+    
+
 }
 
 // Remove Task function definition 
@@ -112,3 +122,5 @@ function reloadPage() {
     //using the reload fun on location object 
     location.reload();
 }
+
+
