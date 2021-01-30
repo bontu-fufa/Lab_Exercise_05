@@ -5,8 +5,9 @@ const filter = document.querySelector('#filter'); //the task filter text field
 const taskList = document.querySelector('.collection'); //The UL
 const clearBtn = document.querySelector('.clear-tasks'); //the all task clear button
 const reloadIcon = document.querySelector('.fa'); //the reload button at the top navigation 
-
-const searchButton = document.querySelector('#searchButton');
+const orderChoice = document.querySelector('#order-choice'); // order selection 
+let registeredTasks; // for nodelist collection 
+let tasksCollection; // for arrays
 // Add Event Listener  [Form , clearBtn and filter search input ]
 
 // form submit 
@@ -19,6 +20,8 @@ filter.addEventListener('keyup', filterTasks);
 taskList.addEventListener('click', removeTask);
 // Event Listener for reload 
 reloadIcon.addEventListener('click', reloadPage);
+//  Event Listener for date order
+orderChoice.addEventListener('change',reorderDisplay);
 
 
 
@@ -26,7 +29,6 @@ reloadIcon.addEventListener('click', reloadPage);
 // Add New  Task Function definition 
 function addNewTask(e) {
 
-    e.preventDefault(); //disable form submission
 
 
     // Check empty entry
@@ -42,6 +44,10 @@ function addNewTask(e) {
     li.className = 'collection-item';
     // Create text node and append it 
     li.appendChild(document.createTextNode(taskInput.value));
+    // adding and appending time 
+    const currentTime = document.createElement("time");
+    currentTime.setAttribute("datetime", Date.now());
+    li.appendChild(currentTime);
     // Create new element for the link 
     const link = document.createElement('a');
     // Add class and the x marker for a 
@@ -52,6 +58,7 @@ function addNewTask(e) {
     // Append to UL 
     taskList.appendChild(li);
 
+    e.preventDefault(); //disable form submission
 
 
 
@@ -123,4 +130,51 @@ function reloadPage() {
     location.reload();
 }
 
+function ascending(tasksRegistered){
+    tasksRegistered = tasksRegistered.sort(function(a, b) {
+        if (parseInt(a.getAttribute("datetime")) < parseInt(b.getAttribute("datetime"))){
+            return 1;
+        } else {
+            return -1;
+        }
+    });
 
+    return tasksRegistered;
+}
+
+function descending(tasksRegistered){
+    tasksRegistered = tasksRegistered.sort(function(a, b) {
+        if (parseInt(a.getAttribute("datetime")) > parseInt(b.getAttribute("datetime"))){
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+    return tasksRegistered;
+}
+
+
+// Ascending - Descending ordering function
+function reorderDisplay(){
+    //get all tasks
+    registeredTasks = document.querySelectorAll(".collection-item");
+    tasksCollection = [];
+    // put tasks into array
+    registeredTasks.forEach(function(task) {
+        tasksCollection.push(task);
+    });
+
+    // ordering
+    if (orderChoice.value == 'ascend')  tasksCollection = ascending(tasksCollection);
+    if (orderChoice.value == 'descend') tasksCollection = descending(tasksCollection);
+    
+    // display in order
+    taskList.innerHTML = '';
+    tasksCollection.forEach( function(task) {
+        let li = document.createElement("li");
+        li.innerHTML = task.innerHTML;
+        li.className = "collection-item";
+        taskList.appendChild(li);
+    });
+
+}
